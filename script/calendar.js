@@ -19,7 +19,7 @@
       document.querySelector('.month-year').textContent = selectedYear;
 
       var scheduleData = {
-        "07": [
+        "7": [
           {time: '20:00 - 20:30 UTC', title: 'MMD Roumoules medium wave broadcast', cls: 'pre-recorded', freq: '1467 kHz', desc: 'Broadcast on a brand new transmitter in Roumoules, France. This is a pre-recorded test broadcast in the medium wave band.'},
           {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
