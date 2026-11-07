@@ -1,13 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mystery For Joy Database</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d1117">
+  <meta name="description" content="Browse the Mystery For Joy schedule and broadcast assets.">
+  <title>Mystery For Joy — Asset directory</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2328;
+      --muted: #656d76;
+      --border: #d1d9e0;
+      --canvas: #f6f8fa;
+      --green: #1f883d;
+      --blue: #0969da;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: #fff;
+      font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+    }
+
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    button, input { font: inherit; }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .topbar {
+      min-height: 64px;
+      padding: 0 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      color: #f0f6fc;
+      background: #0d1117;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .brand:hover, .top-link:hover { color: #fff; text-decoration: none; }
+    .brand-mark { width: 30px; height: 30px; }
+    .top-link { color: #f0f6fc; font-weight: 500; }
+    .top-spacer { flex: 1; }
+    .top-note { color: #9198a1; font-size: 12px; }
+
+    main {
+      width: min(1120px, calc(100% - 48px));
+      margin: 38px auto 72px;
+    }
+
+    .repo-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 24px;
+      padding-bottom: 22px;
+    }
+
+    .repo-title {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.25;
+      font-weight: 600;
+      letter-spacing: -.4px;
+    }
+
+    .repo-title a { font-weight: 400; }
+    .visibility {
+      padding: 1px 8px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .description { margin: 9px 0 0; color: var(--muted); font-size: 15px; }
+    .repo-actions { display: flex; gap: 8px; padding-top: 2px; }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 32px;
+      padding: 5px 12px;
+      border: 1px solid #d1d9e0;
+      border-radius: 6px;
+      color: var(--ink);
+      background: linear-gradient(#fff, #f6f8fa);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    .button:hover { background: #f3f4f6; text-decoration: none; }
+    .button svg { width: 16px; height: 16px; fill: currentColor; }
+
+    .tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
+      border-bottom: 2px solid transparent;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .tab.active { border-bottom-color: #fd8c73; font-weight: 600; }
+    .tab svg { width: 16px; height: 16px; fill: #656d76; }
+    .tab-count { color: var(--muted); font-size: 12px; }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 24px;
+      margin-top: 24px;
+      align-items: start;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .breadcrumb { display: flex; align-items: center; gap: 8px; min-width: 0; }
+    .crumb-home { font-weight: 600; }
+    .slash { color: #8c959f; }
+    .branch-button { min-height: 32px; }
+
+    .search {
+      width: 100%;
+      height: 34px;
+      margin-bottom: 14px;
+      padding: 6px 12px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      outline: none;
+      color: var(--ink);
+      background: #fff;
+    }
+    .search:focus { border-color: #0969da; box-shadow: 0 0 0 3px #0969da33; }
+    .search::placeholder { color: #818b98; }
+
+    .file-panel {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .file-panel-heading {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 120px;
+      padding: 10px 16px;
+      color: var(--muted);
+      background: var(--canvas);
+      font-size: 12px;
+    }
+
+    .file-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 120px;
+      align-items: center;
+      min-height: 54px;
+      padding: 8px 16px;
+      border-top: 1px solid #d8dee4;
+      gap: 12px;
+    }
+    .file-row:hover { background: #f6f8fa; }
+    .file-name { display: flex; align-items: center; min-width: 0; gap: 10px; }
+    .file-name a { overflow: hidden; color: var(--ink); text-overflow: ellipsis; white-space: nowrap; }
+    .file-name a:hover { color: var(--blue); }
+    .file-icon { width: 16px; height: 16px; flex: 0 0 16px; fill: #656d76; }
+    .file-info { overflow: hidden; color: var(--muted); text-overflow: ellipsis; white-space: nowrap; }
+    .empty-state { display: none; padding: 22px; color: var(--muted); text-align: center; }
+
+    .readme {
+      margin-top: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .readme-heading {
+      padding: 11px 16px;
+      border-bottom: 1px solid var(--border);
+      background: var(--canvas);
+      font-weight: 600;
+    }
+    .readme-content { padding: 20px 22px; }
+    .readme-content h2 { margin: 0 0 7px; padding-bottom: 8px; border-bottom: 1px solid var(--border); font-size: 20px; }
+    .readme-content p { margin: 0; color: var(--muted); }
+
+    .about { padding-top: 1px; }
+    .about h2 { margin: 0 0 8px; font-size: 16px; }
+    .about p { margin: 0 0 14px; color: var(--muted); }
+    .about-link { display: flex; align-items: center; gap: 8px; margin: 10px 0; }
+    .about-link svg { width: 16px; height: 16px; flex: 0 0 16px; fill: #656d76; }
+    .about-divider { height: 1px; margin: 18px 0; background: var(--border); }
+    .about-label { color: var(--muted); font-size: 12px; }
+    .topic {
+      display: inline-block;
+      margin: 8px 4px 0 0;
+      padding: 3px 10px;
+      border-radius: 20px;
+      color: #0969da;
+      background: #ddf4ff;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .gallery { margin-top: 26px; }
+    .gallery-header { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+    .gallery h2 { margin: 0; font-size: 16px; }
+    .gallery-header span { color: var(--muted); font-size: 12px; }
+    .preview-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .preview-card { overflow: hidden; border: 1px solid var(--border); border-radius: 6px; background: #fff; }
+    .preview-top { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; }
+    .preview-title { font-weight: 600; }
+    .preview-size { color: var(--muted); font-size: 12px; }
+    .preview-image {
+      display: grid;
+      min-height: 125px;
+      place-items: center;
+      padding: 10px;
+      border-top: 1px solid var(--border);
+      background: var(--canvas);
+    }
+    .preview-image img { display: block; width: 100%; max-height: 230px; object-fit: contain; }
+    .preview-empty { color: var(--muted); font-size: 13px; text-align: center; }
+    .preview-empty strong { display: block; margin-bottom: 3px; color: var(--ink); font-weight: 500; }
+
+    footer { margin-top: 42px; padding-top: 18px; border-top: 1px solid var(--border); color: var(--muted); font-size: 12px; text-align: center; }
+    footer a { color: var(--muted); }
+
+    @media (max-width: 760px) {
+      .topbar { min-height: 56px; padding: 0 16px; }
+      .top-note { display: none; }
+      main { width: min(100% - 32px, 600px); margin-top: 26px; }
+      .repo-heading { flex-direction: column; gap: 14px; }
+      .repo-title { font-size: 22px; }
+      .layout { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+      .about { padding-top: 18px; border-top: 1px solid var(--border); }
+      .file-panel-heading, .file-row { grid-template-columns: minmax(0, 1fr) 76px; padding-right: 12px; padding-left: 12px; }
+      .file-info { font-size: 12px; text-align: right; }
+      .preview-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+  </style>
+  <link rel="stylesheet" href="site-footer.css">
 </head>
 <body>
-    <h1>403 - Access Denied</h1>
-    <p>You do not have permission to access this resource.</p>
-    <p>This domain is used for the Mystery For Joy Database.</p>
+  <header class="topbar">
+    <a class="brand" href="https://mysteryforjoy.fr" aria-label="Mystery For Joy home">
+      <img class="brand-mark" src="https://signabroam.ovh/assets/icons/logo/signabroam%20no%20background.png" alt="">
+      Mystery For Joy
+    </a>
+    <a class="top-link" href="https://github.com/Keyfront/Mystery-For-Joy-data_asset_directory">Repository</a>
+    <span class="top-spacer"></span>
+    <span class="top-note">API of <a href="https://mysteryforjoy.fr">mysteryforjoy.fr</a></span>
+  </header>
+
+  <main>
+    <section class="repo-heading" aria-labelledby="repo-title">
+      <div>
+        <h1 class="repo-title" id="repo-title">
+          <a href="https://github.com/Keyfront">Keyfront</a>
+          <span aria-hidden="true">/</span>
+          <span>Mystery-For-Joy-data_asset_directory</span>
+          <span class="visibility">Public</span>
+        </h1>
+        <p class="description">This Git repository and website provide the API and schedule assets for <a href="https://mysteryforjoy.fr">mysteryforjoy.fr</a>.</p>
+      </div>
+      <div class="repo-actions">
+        <a class="button" href="https://github.com/Keyfront/Mystery-For-Joy-data_asset_directory" aria-label="View repository on GitHub">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.49c-2.23.49-2.7-.95-2.7-.95-.36-.93-.89-1.18-.89-1.18-.73-.5.06-.49.06-.49.8.06 1.22.83 1.22.83.72 1.22 1.89.87 2.35.66.07-.52.28-.87.51-1.07-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.6.83-2.17-.08-.2-.36-1.03.08-2.14 0 0 .68-.22 2.2.83A7.65 7.65 0 0 1 8 4.31c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.83 2.2-.83.44 1.11.16 1.94.08 2.14.52.57.83 1.29.83 2.17 0 3.08-1.87 3.75-3.66 3.95.29.25.54.73.54 1.47v2.18c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg>
+          View on GitHub
+        </a>
+      </div>
+    </section>
+
+    <nav class="tabs" aria-label="Repository sections">
+      <a class="tab active" href="#files" aria-current="page">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V5.56a1.75 1.75 0 0 0-.51-1.24l-2.81-2.81A1.75 1.75 0 0 0 11.44 1Zm0 1.5h8.5v3h4.25v7.75a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25V2.75a.25.25 0 0 1 .25-.25Z"/></svg>
+        Code
+      </a>
+      <a class="tab" href="#schedule-gallery">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V2.75A1.75 1.75 0 0 0 14.25 1Zm-.25 4h13v8.25a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25Zm1.5 2v1.5h2V7Zm3.5 0v1.5h2V7Zm3.5 0v1.5h2V7Zm-7 3v1.5h2V10Zm3.5 0v1.5h2V10Z"/></svg>
+        Schedules
+        <span class="tab-count">4</span>
+      </a>
+    </nav>
+
+    <div class="layout">
+      <div>
+        <section id="files" aria-label="Repository files">
+          <div class="toolbar">
+            <div class="breadcrumb">
+              <button class="button branch-button" type="button" aria-label="Current branch main">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.72 3.5a1.75 1.75 0 1 0-1.44 0v9a1.75 1.75 0 1 0 1.5.02V8.45c.45.34 1.01.55 1.62.55h2.1a2.75 2.75 0 0 0 2.75-2.75v-.78a1.75 1.75 0 1 0-1.5 0v.78c0 .69-.56 1.25-1.25 1.25H6.4c-.69 0-1.25-.56-1.25-1.25V3.5h-.43Z"/></svg>
+                main
+              </button>
+              <span class="slash">/</span>
+              <a class="crumb-home" href="#files">root</a>
+            </div>
+            <a class="button" href="#schedule-gallery">Browse schedules</a>
+          </div>
+
+          <label class="sr-only" for="file-search">Filter repository files</label>
+          <input class="search" id="file-search" type="search" placeholder="Filter files..." autocomplete="off">
+
+          <div class="file-panel" id="file-list">
+            <div class="file-panel-heading"><span>Name</span><span>Contents</span></div>
+            <div class="file-row" data-search="images schedules broadcast png assets">
+              <div class="file-name">
+                <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V5.56a1.75 1.75 0 0 0-.51-1.24l-2.81-2.81A1.75 1.75 0 0 0 11.44 1Zm0 1.5h8.5v3h4.25v7.75a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25V2.75a.25.25 0 0 1 .25-.25Z"/></svg>
+                <a href="images/">images/</a>
+              </div>
+              <span class="file-info">4 schedules</span>
+            </div>
+            <div class="file-row" data-search="script calendar javascript">
+              <div class="file-name">
+                <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V5.56a1.75 1.75 0 0 0-.51-1.24l-2.81-2.81A1.75 1.75 0 0 0 11.44 1Zm0 1.5h8.5v3h4.25v7.75a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25V2.75a.25.25 0 0 1 .25-.25Zm1.75 7.75 1.75 1.5-1.75 1.5.97 1.13 3-2.63-3-2.63Zm4.75 2.25V14h4v-1.5Z"/></svg>
+                <a href="script/">script/</a>
+              </div>
+              <a class="file-info" href="script/calendar.js">1 JavaScript file</a>
+            </div>
+            <div class="file-row" data-search="cname github pages domain">
+              <div class="file-name">
+                <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 1h5.69L14 5.56v8.69c0 .97-.78 1.75-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 14.25v-11C2 2.03 2.78 1 3.75 1Zm5.5 1.5v3h3Zm-5.5 0a.25.25 0 0 0-.25.25v11c0 .14.11.25.25.25h8.5a.25.25 0 0 0 .25-.25V7h-3A1.75 1.75 0 0 1 7.75 5.25v-2.75Z"/></svg>
+                <a href="CNAME">CNAME</a>
+              </div>
+              <span class="file-info">11 B</span>
+            </div>
+            <div class="file-row" data-search="licence license legal">
+              <div class="file-name">
+                <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 1h5.69L14 5.56v8.69c0 .97-.78 1.75-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 14.25v-11C2 2.03 2.78 1 3.75 1Zm5.5 1.5v3h3Zm-5.5 0a.25.25 0 0 0-.25.25v11c0 .14.11.25.25.25h8.5a.25.25 0 0 0 .25-.25V7h-3A1.75 1.75 0 0 1 7.75 5.25v-2.75Z"/></svg>
+                <a href="LICENCE">LICENCE</a>
+              </div>
+              <span class="file-info">86 B</span>
+            </div>
+            <div class="empty-state" id="empty-state">No files match your search.</div>
+          </div>
+        </section>
+
+        <section class="readme" aria-labelledby="readme-title">
+          <div class="readme-heading">README</div>
+          <div class="readme-content">
+            <h2 id="readme-title">Mystery For Joy asset directory</h2>
+            <p>This site is the API and schedule asset directory for <a href="https://mysteryforjoy.fr">mysteryforjoy.fr</a>. Browse the latest schedule images by folder.</p>
+          </div>
+        </section>
+
+        <section class="gallery" id="schedule-gallery" aria-labelledby="gallery-title">
+          <div class="gallery-header">
+            <h2 id="gallery-title">Schedule previews</h2>
+            <span>images/</span>
+          </div>
+          <div class="preview-grid">
+            <article class="preview-card">
+              <div class="preview-top"><a class="preview-title" href="images/schedule_3955/">schedule_3955</a><span class="preview-size">0 B</span></div>
+              <div class="preview-image"><div class="preview-empty"><strong>No preview available</strong>latest.png is currently empty.</div></div>
+            </article>
+            <article class="preview-card">
+              <div class="preview-top"><a class="preview-title" href="images/schedule_6070/">schedule_6070</a><span class="preview-size">0 B</span></div>
+              <div class="preview-image"><div class="preview-empty"><strong>No preview available</strong>latest.png is currently empty.</div></div>
+            </article>
+            <article class="preview-card">
+              <div class="preview-top">
+                <a class="preview-title" href="images/schedule_9670/">schedule_9670</a>
+                <a class="preview-size" href="images/schedule_9670/latest.png" download>Open image</a>
+              </div>
+              <a class="preview-image" href="images/schedule_9670/latest.png" target="_blank" rel="noopener" aria-label="Open schedule 9670 image">
+                <img src="images/schedule_9670/latest.png" alt="Latest broadcast schedule image for 9670">
+              </a>
+            </article>
+            <article class="preview-card">
+              <div class="preview-top">
+                <a class="preview-title" href="images/schedule_m4j/">schedule_m4j</a>
+                <a class="preview-size" href="images/schedule_m4j/latest.png" download>Open image</a>
+              </div>
+              <a class="preview-image" href="images/schedule_m4j/latest.png" target="_blank" rel="noopener" aria-label="Open Mystery For Joy schedule image">
+                <img src="images/schedule_m4j/latest.png" alt="Latest Mystery For Joy schedule image">
+              </a>
+            </article>
+          </div>
+        </section>
+      </div>
+
+      <aside class="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <p>API and schedule assets for <a href="https://mysteryforjoy.fr">mysteryforjoy.fr</a>.</p>
+        <a class="about-link" href="#schedule-gallery">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M7.5 1a6.5 6.5 0 1 0 3.92 11.69L14.73 16 16 14.73l-3.31-3.31A6.5 6.5 0 0 0 7.5 1Zm0 1.5a5 5 0 1 1 0 10 5 5 0 0 1 0-10Z"/></svg>
+          Browse schedule images
+        </a>
+        <a class="about-link" href="https://github.com/Keyfront/Mystery-For-Joy-data_asset_directory">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.49c-2.23.49-2.7-.95-2.7-.95-.36-.93-.89-1.18-.89-1.18-.73-.5.06-.49.06-.49.8.06 1.22.83 1.22.83.72 1.22 1.89.87 2.35.66.07-.52.28-.87.51-1.07-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.6.83-2.17-.08-.2-.36-1.03.08-2.14 0 0 .68-.22 2.2.83A7.65 7.65 0 0 1 8 4.31c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.83 2.2-.83.44 1.11.16 1.94.08 2.14.52.57.83 1.29.83 2.17 0 3.08-1.87 3.75-3.66 3.95.29.25.54.73.54 1.47v2.18c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg>
+          View source repository
+        </a>
+        <div class="about-divider"></div>
+        <div class="about-label">Topics</div>
+        <a class="topic" href="#schedule-gallery">broadcast</a>
+        <a class="topic" href="#schedule-gallery">schedules</a>
+        <a class="topic" href="#schedule-gallery">radio</a>
+        <div class="about-divider"></div>
+        <div class="about-label">Repository contents</div>
+        <p style="margin-top: 6px;">4 schedule folders · 1 script</p>
+      </aside>
+    </div>
+
+    <footer class="site-footer">
+      <div class="footer-main">
+        <div class="footer-links">
+          <a class="footer-link" href="https://github.com/Keyfront/Mystery-For-Joy-data_asset_directory">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0a8 8 0 0 0-2.53 15.59c.4.07.55-.17.55-.38v-1.49c-2.23.49-2.7-.95-2.7-.95-.36-.93-.89-1.18-.89-1.18-.73-.5.06-.49.06-.49.8.06 1.22.83 1.22.83.72 1.22 1.89.87 2.35.66.07-.52.28-.87.51-1.07-1.78-.2-3.65-.89-3.65-3.96 0-.88.31-1.6.83-2.17-.08-.2-.36-1.03.08-2.14 0 0 .68-.22 2.2.83A7.65 7.65 0 0 1 8 4.31c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.83 2.2-.83.44 1.11.16 1.94.08 2.14.52.57.83 1.29.83 2.17 0 3.08-1.87 3.75-3.66 3.95.29.25.54.73.54 1.47v2.18c0 .21.15.46.55.38A8 8 0 0 0 8 0Z"/></svg>
+            GitHub repository
+          </a>
+          <a class="footer-link" href="https://signabroam.ovh">
+            <img src="https://signabroam.ovh/assets/icons/logo/signabroam%20no%20background.png" alt="">
+            Service mark: signabroam.ovh
+          </a>
+        </div>
+        <a class="repo-preview" href="https://github.com/Keyfront/Mystery-For-Joy-data_asset_directory" aria-label="Open the repository on GitHub">
+          <img src="https://opengraph.githubassets.com/1/Keyfront/Mystery-For-Joy-data_asset_directory" alt="GitHub repository preview" loading="lazy">
+          <span class="repo-preview-caption"><strong>GitHub repository</strong><small>Keyfront / Mystery-For-Joy-data_asset_directory</small></span>
+        </a>
+      </div>
+      <p class="footer-note">Schedule asset API for <a href="https://mysteryforjoy.fr">mysteryforjoy.fr</a>.</p>
+    </footer>
+  </main>
+
+  <script>
+    (function () {
+      var search = document.getElementById('file-search');
+      var rows = Array.prototype.slice.call(document.querySelectorAll('.file-row'));
+      var emptyState = document.getElementById('empty-state');
+
+      search.addEventListener('input', function () {
+        var query = search.value.trim().toLowerCase();
+        var visibleCount = 0;
+
+        rows.forEach(function (row) {
+          var matches = row.getAttribute('data-search').indexOf(query) !== -1;
+          row.hidden = !matches;
+          if (matches) visibleCount += 1;
+        });
+
+        emptyState.style.display = visibleCount ? 'none' : 'block';
+      });
+    })();
+  </script>
 </body>
 </html>
