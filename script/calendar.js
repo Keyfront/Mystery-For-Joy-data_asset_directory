@@ -21,36 +21,36 @@
       var scheduleData = {
         "7": [
           {time: '20:00 - 20:30 UTC', title: 'MMD Roumoules medium wave broadcast', cls: 'pre-recorded', freq: '1467 kHz', desc: 'Broadcast on a brand new transmitter in Roumoules, France. This is a pre-recorded test broadcast in the medium wave band.'},
-          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "14": [
           {time: '21:00 - 22:00 UTC', title: 'Pre-recorded broadcast from Armenia - 7425 kHz', cls: 'pre-recorded', freq: '7425 kHz', desc: 'A pre-recorded broadcast from Armenia on 7425 kHz.'},
           {time: '17:00 - 18:00 UTC', title: 'Pre-recorded English broadcast from RC292 - 9670 kHz', cls: 'pre-recorded', freq: '9670 kHz', desc: 'A pre-recorded broadcast from RC292 on 9670 kHz.'},
           {time: '18:00 - 19:00 UTC', title: 'Pre-recorded French broadcast from RC292 - 9670 kHz', cls: 'pre-recorded', freq: '9670 kHz', desc: 'A pre-recorded broadcast from RC292 on 9670 kHz.'},
-          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "28": [
           {time: '21:00 - 22:00 UTC', title: 'Pre-recorded broadcast from Armenia - 7425 kHz', cls: 'pre-recorded', freq: '7425 kHz', desc: 'A pre-recorded broadcast from Armenia on 7425 kHz.'},
-          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         // WRMI:
         "2": [
-          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "9": [
-          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "16": [
-          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "21": [
-          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "23": [
-          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "30": [
-          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', cls: 'pre-recorded', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ]
       };
 
