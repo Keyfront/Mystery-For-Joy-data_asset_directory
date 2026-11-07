@@ -1,7 +1,7 @@
 (function(){
       var calendarConfig = {
         months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-        selectedMonth: 'October',
+        selectedMonth: 'November',
         selectedYear: 2026
       };
       // the calendar config is made to be easy to edit but still may can content issues... 
@@ -19,164 +19,38 @@
       document.querySelector('.month-year').textContent = selectedYear;
 
       var scheduleData = {
-        // Here are the schedules that will show on modals above (avoid deleting before the end of the month):
-
-        /* The format is like this:
-        "day": [
-          {time: 'HH:MM UTC', title: 'Show title', cls: 'live|special|pre-recorded', freq: 'Frequency details', desc: 'Optional description'}
+        "07": [
+          {time: '20:00 - 20:30 UTC', title: 'MMD Roumoules medium wave broadcast', cls: 'pre-recorded', freq: '1467 kHz', desc: 'Broadcast on a brand new transmitter in Roumoules, France. This is a pre-recorded test broadcast in the medium wave band.'},
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-        */
-
-        "10": [
-          {
-            time: '19:00-20:00 UTC',
-            title: 'Mystery For Joy - french pre-recorded Show - Radio Channel292',
-            cls: 'pre-recorded',
-            freq: '6070 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment in french via Radio Channel292.'
-          },
-          {
-            time: '20:00-21:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - Radio Channel292',
-            cls: 'pre-recorded',
-            freq: '6070 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via Radio Channel292.'
-          },
-          {
-            time: '20:00-21:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - Radio Channel292',
-            cls: 'pre-recorded',
-            freq: '9670 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via Radio Channel292. (beamed to Romania and Eastern Europe)'
-          },
-          {
-            time: '20:00-21:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - Yerevan-Gavar',
-            cls: 'pre-recorded',
-            freq: '7425 kHz',
-            desc: 'A wide band audio pre-recorded show via Gavar, Armenia transmitters.'
-          },
-          {
-            time: '22:30-23:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '15770 kHz',
-            desc: 'A wide band audio pre-recorded show via WRMI transmitters.'
-          }
+        "14": [
+          {time: '21:00 - 22:00 UTC', title: 'Pre-recorded broadcast from Armenia - 7425 kHz', cls: 'pre-recorded', freq: '7425 kHz', desc: 'A pre-recorded broadcast from Armenia on 7425 kHz.'},
+          {time: '17:00 - 18:00 UTC', title: 'Pre-recorded English broadcast from RC292 - 9670 kHz', cls: 'pre-recorded', freq: '9670 kHz', desc: 'A pre-recorded broadcast from RC292 on 9670 kHz.'},
+          {time: '18:00 - 19:00 UTC', title: 'Pre-recorded French broadcast from RC292 - 9670 kHz', cls: 'pre-recorded', freq: '9670 kHz', desc: 'A pre-recorded broadcast from RC292 on 9670 kHz.'},
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-        "17": [
-          {
-            time: '20:30-21:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - Woofferton',
-            cls: 'pre-recorded',
-            freq: '9915 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via Encompass Woofferton transmitters.'
-          },
-          {
-            time: '22:30-23:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '15770 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
+        "28": [
+          {time: '21:00 - 22:00 UTC', title: 'Pre-recorded broadcast from Armenia - 7425 kHz', cls: 'pre-recorded', freq: '7425 kHz', desc: 'A pre-recorded broadcast from Armenia on 7425 kHz.'},
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-        "29": [
-          {
-            time: '20:00-21:00 UTC',
-            title: 'Mystery For Joy - Birthday special pre-recorded Show - Yerevan-Gavar',
-            cls: 'special',
-            freq: '7520 kHz',
-            desc: 'A special pre-recorded show celebrating birthdays via Yerevan-Gavar transmitters.'
-          },
-          {
-            time: '20:00-21:00 UTC',
-            title: 'Mystery For Joy - Birthday special pre-recorded Show - WRMI',
-            cls: 'special',
-            freq: '5850 kHz',
-            desc: 'A special pre-recorded show celebrating birthdays via WRMI transmitters.'
-          },
-          {
-            time: '19:00-19:30 UTC',
-            title: 'Mystery For Joy - Birthday special pre-recorded Show - Woofferton',
-            cls: 'special',
-            freq: '5875 kHz',
-            desc: 'A special pre-recorded show celebrating birthdays via Woofferton transmitters.'
-          }
+        // WRMI:
+        "02": [
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-
-        // WRMI Side:
-        // 15770 kHz:
-        "3":
-        [
-          {
-            time: '22:30-23:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '15770 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
+        "09": [
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-        "24":
-        [
-          {
-            time: '22:30-23:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '15770 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
+        "16": [
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-        "31":
-        [
-          {
-            time: '22:30-23:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '15770 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
+        "21": [
+          {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-
-        // 5850 kHz:
-        "5":
-        [
-          {
-            time: '02:30-03:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '5850 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
+        "23": [
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-        "12":
-        [
-          {
-            time: '02:30-03:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '5850 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
-        ],
-        "19":
-        [
-          {
-            time: '02:30-03:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '5850 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
-        ],
-        "26":
-        [
-          {
-            time: '02:30-03:00 UTC',
-            title: 'Mystery For Joy - pre-recorded Show - WRMI',
-            cls: 'pre-recorded',
-            freq: '5850 kHz',
-            desc: 'A pre-recorded show featuring music and entertainment via WRMI transmitters.'
-          }
+        "30": [
+          {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ]
       };
 
