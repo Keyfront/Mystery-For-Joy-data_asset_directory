@@ -34,10 +34,10 @@
           {time: '22:30 - 23:00 UTC', title: 'WRMI broadcast', freq: '15770 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         // WRMI:
-        "02": [
+        "2": [
           {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
-        "09": [
+        "9": [
           {time: '02:30 - 03:00 UTC', title: 'WRMI broadcast', freq: '5850 kHz', desc: 'WRMI Okeechobee, 100 kW. For North America.'}
         ],
         "16": [
