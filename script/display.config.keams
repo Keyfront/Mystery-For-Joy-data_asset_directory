@@ -1,0 +1,11 @@
+[keafile]
+
+_ENTRY_
+
+m4j_shedule: "true",
+"6070_schedule": "false",
+"3955_schedule": "false",
+"9670_schedule": "true",
+wrmi_system_fh: "true",
+
+_END_
