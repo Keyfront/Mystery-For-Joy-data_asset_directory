@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../images/directory.css">
   <link rel="stylesheet" href="../site-footer.css">
 </head>
-<body>
+<body data-directory="script" data-viewer-root="../">
   <header class="topbar">
     <a class="brand" href="https://mysteryforjoy.fr">
       <img class="brand-mark" src="https://signabroam.ovh/assets/icons/logo/signabroam%20no%20background.png" alt="">
@@ -22,27 +22,10 @@
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="../">root</a><span class="slash">/</span><span aria-current="page">script</span>
     </nav>
-    <section class="file-panel" aria-label="Script files">
-      <div class="panel-heading"><span>Name</span><span>Type</span></div>
-      <div class="file-row">
-        <div class="file-name">
-          <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 1h5.69L14 5.56v8.69c0 .97-.78 1.75-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 14.25v-11C2 2.03 2.78 1 3.75 1Zm5.5 1.5v3h3Zm-5.5 0a.25.25 0 0 0-.25.25v11c0 .14.11.25.25.25h8.5a.25.25 0 0 0 .25-.25V7h-3A1.75 1.75 0 0 1 7.75 5.25v-2.75Z"/></svg>
-          <a href="calendar.js">calendar.js</a>
-        </div>
-        <span class="file-info">JavaScript</span>
-      </div>
-      <div class="file-row">
-        <div class="file-name">
-          <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.75 1h5.69L14 5.56v8.69c0 .97-.78 1.75-1.75 1.75h-8.5A1.75 1.75 0 0 1 2 14.25v-11C2 2.03 2.78 1 3.75 1Zm5.5 1.5v3h3Zm-5.5 0a.25.25 0 0 0-.25.25v11c0 .14.11.25.25.25h8.5a.25.25 0 0 0 .25-.25V7h-3A1.75 1.75 0 0 1 7.75 5.25v-2.75Z"/></svg>
-          <a href="display.config.keams">display.config.keams</a>
-        </div>
-        <span class="file-info">Keafile</span>
-      </div>
+    <section class="file-panel" aria-label="Script files" data-directory-list data-column="Size">
+      <div class="panel-heading"><span>Name</span><span>Size</span></div>
     </section>
-    <section class="preview-panel" aria-label="Script description">
-      <div class="preview-heading">calendar.js</div>
-      <div class="preview-content"><p class="empty">Builds the broadcast calendar, lists scheduled appointments, and displays schedule details.</p></div>
-    </section>
+    <p class="directory-status" data-directory-status role="status">Loading files...</p>
     <footer class="site-footer">
       <p class="footer-back"><a href="../">Back to repository root</a></p>
       <div class="footer-main">
@@ -64,5 +47,6 @@
       <p class="footer-note">Schedule asset API for <a href="https://mysteryforjoy.fr">mysteryforjoy.fr</a>.</p>
     </footer>
   </main>
+  <script src="../directory-viewer.js"></script>
 </body>
 </html>

@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="directory.css">
   <link rel="stylesheet" href="../site-footer.css">
 </head>
-<body>
+<body data-directory="images" data-viewer-root="../">
   <header class="topbar">
     <a class="brand" href="https://mysteryforjoy.fr">
       <img class="brand-mark" src="https://signabroam.ovh/assets/icons/logo/signabroam%20no%20background.png" alt="">
@@ -22,33 +22,10 @@
     <nav class="breadcrumb" aria-label="Breadcrumb">
       <a href="../">root</a><span class="slash">/</span><span aria-current="page">images</span>
     </nav>
-    <section class="file-panel" aria-label="Image folders">
+    <section class="file-panel" aria-label="Image folders" data-directory-list data-column="Contents">
       <div class="panel-heading"><span>Name</span><span>Contents</span></div>
-      <div class="file-row">
-        <div class="file-name">
-          <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V5.56a1.75 1.75 0 0 0-.51-1.24l-2.81-2.81A1.75 1.75 0 0 0 11.44 1Zm0 1.5h8.5v3h4.25v7.75a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25V2.75a.25.25 0 0 1 .25-.25Z"/></svg>
-          <a href="schedule_3955/">schedule_3955/</a>
-        </div><span class="file-info">latest.png · 0 B</span>
-      </div>
-      <div class="file-row">
-        <div class="file-name">
-          <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V5.56a1.75 1.75 0 0 0-.51-1.24l-2.81-2.81A1.75 1.75 0 0 0 11.44 1Zm0 1.5h8.5v3h4.25v7.75a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25V2.75a.25.25 0 0 1 .25-.25Z"/></svg>
-          <a href="schedule_6070/">schedule_6070/</a>
-        </div><span class="file-info">latest.png · 0 B</span>
-      </div>
-      <div class="file-row">
-        <div class="file-name">
-          <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V5.56a1.75 1.75 0 0 0-.51-1.24l-2.81-2.81A1.75 1.75 0 0 0 11.44 1Zm0 1.5h8.5v3h4.25v7.75a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25V2.75a.25.25 0 0 1 .25-.25Z"/></svg>
-          <a href="schedule_9670/">schedule_9670/</a>
-        </div><span class="file-info">latest.png · 150.8 KB</span>
-      </div>
-      <div class="file-row">
-        <div class="file-name">
-          <svg class="file-icon" viewBox="0 0 16 16" aria-hidden="true"><path d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.22.78 15 1.75 15h12.5c.97 0 1.75-.78 1.75-1.75V5.56a1.75 1.75 0 0 0-.51-1.24l-2.81-2.81A1.75 1.75 0 0 0 11.44 1Zm0 1.5h8.5v3h4.25v7.75a.25.25 0 0 1-.25.25H1.75a.25.25 0 0 1-.25-.25V2.75a.25.25 0 0 1 .25-.25Z"/></svg>
-          <a href="schedule_m4j/">schedule_m4j/</a>
-        </div><span class="file-info">latest.png · 215.4 KB</span>
-      </div>
     </section>
+    <p class="directory-status" data-directory-status role="status">Loading files...</p>
     <footer class="site-footer">
       <p class="footer-back"><a href="../">Back to repository root</a></p>
       <div class="footer-main">
@@ -70,5 +47,6 @@
       <p class="footer-note">Schedule asset API for <a href="https://mysteryforjoy.fr">mysteryforjoy.fr</a>.</p>
     </footer>
   </main>
+  <script src="../directory-viewer.js"></script>
 </body>
 </html>

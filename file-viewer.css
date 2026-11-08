@@ -1,0 +1,89 @@
+:root {
+  color-scheme: light;
+  --ink: #1f2328;
+  --muted: #656d76;
+  --border: #d1d9e0;
+  --canvas: #f6f8fa;
+  --blue: #0969da;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: #fff;
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
+}
+
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.topbar {
+  min-height: 60px;
+  padding: 0 max(24px, calc((100% - 1120px) / 2));
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #f0f6fc;
+  background: #0d1117;
+}
+
+.brand { display: inline-flex; align-items: center; gap: 10px; color: inherit; font-size: 15px; font-weight: 600; white-space: nowrap; }
+.brand:hover, .top-link:hover { color: #fff; text-decoration: none; }
+.brand-mark { display: block; width: 30px; height: 30px; object-fit: contain; }
+.top-link { color: #f0f6fc; }
+.top-spacer { flex: 1; }
+.top-note { color: #9198a1; font-size: 12px; }
+.top-note a { color: inherit; }
+
+main { width: min(1120px, calc(100% - 48px)); margin: 36px auto 64px; }
+.repo-title { margin: 0 0 22px; font-size: 22px; line-height: 1.3; font-weight: 600; }
+.repo-title a { font-weight: 400; }
+.breadcrumb { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; color: var(--muted); }
+.breadcrumb a { font-weight: 600; }
+.slash { color: #8c959f; }
+
+.file-panel { overflow: hidden; border: 1px solid var(--border); border-radius: 6px; }
+.file-toolbar {
+  min-height: 56px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--canvas);
+}
+.file-meta { display: flex; align-items: baseline; flex-wrap: wrap; gap: 10px; min-width: 0; }
+.file-meta strong { overflow-wrap: anywhere; }
+.file-meta span { color: var(--muted); font-size: 12px; }
+.file-actions { display: flex; gap: 6px; }
+.button {
+  min-height: 30px;
+  padding: 4px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--ink);
+  background: linear-gradient(#fff, var(--canvas));
+  font-weight: 500;
+}
+.button:hover { background: #eef1f4; text-decoration: none; }
+.file-status { margin: 0; padding: 14px 16px; color: var(--muted); }
+.file-status[hidden] { display: none; }
+.code-wrap { overflow: auto; }
+.code-wrap[hidden] { display: none; }
+.code-table { width: 100%; border-collapse: collapse; font: 12px/20px "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+.code-table tr:hover { background: #f6f8fa; }
+.line-number { width: 1%; min-width: 48px; padding: 0 12px; color: #8c959f; text-align: right; vertical-align: top; user-select: none; }
+.line-code { min-width: 100%; padding: 0 12px 0 8px; white-space: pre; }
+.line-code code { font: inherit; }
+
+@media (max-width: 600px) {
+  .topbar { min-height: 54px; padding: 0 16px; }
+  .top-note { display: none; }
+  main { width: calc(100% - 32px); margin-top: 26px; }
+  .repo-title { font-size: 19px; }
+  .file-toolbar { align-items: flex-start; }
+}
